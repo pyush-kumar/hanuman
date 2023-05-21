@@ -18,43 +18,7 @@
             50%{background-color: rgba(230, 142, 33, 0.859);}
             100%{background-color: rgb(218, 71, 35);}
         }
-        
-        .loader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  transition:visibility 0s;
-}
-
-.loader--hidden {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.loader::after {
-  content: "";
-  width: 75px;
-  height: 75px;
-  border: 15px solid #dddddd;
-  border-top-color: #009578;
-  border-radius: 50%;
-  animation: loading 0.3s ease infinite;
-}
-
-@keyframes loading {
-  from {
-    transform: rotate(0turn);
-  }
-  to {
-    transform: rotate(1turn);
-  }
-}
+       
         
     </style>
     
