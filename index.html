@@ -117,6 +117,168 @@
 
 
 <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .search-container {
+      background-color: #f2f2f2;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 60px;
+    }
+
+    .search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background-color: #ffffff;
+      border-radius: 20px;
+      padding: 4px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 6px;
+      border-radius: 20px;
+      font-size: 14px;
+      background-color: #ffffff;
+    }
+
+    .search-button {
+      padding: 6px 12px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 12px;
+      margin-left: 4px;
+      transition: background-color 0.3s ease;
+    }
+
+    .search-button:hover {
+      background-color: #45a049;
+    }
+
+    .search-input::placeholder {
+      color: #999;
+    }
+
+    .search-input:focus {
+      background-color: #ffffff;
+    }
+
+    .status-container {
+      text-align: center;
+      padding: 10px;
+    }
+
+    .status-message {
+      font-size: 14px;
+    }
+
+    .resume-button {
+      padding: 6px 12px;
+      background-color: #2196F3;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 12px;
+      margin-left: 4px;
+      transition: background-color 0.3s ease;
+    }
+
+    .resume-button:hover {
+      background-color: #1976D2;
+    }
+  </style>
+
+<script>
+    var audioPlayer;
+    var audioTimer;
+    var statusContainer;
+
+    function searchAndPlay() {
+      var searchTerm = document.getElementById("searchTerm").value;
+
+      // Replace this block with your actual retrieval logic
+      var mp3Files = [
+        { name: "1", url: "ॐ हं हनुमते नमः 1008 Times _ om hanumate namah 1008 _ listen peace full hanuman mantra_j1afyq4EM9A.mp3" },
+        { name: "2", url: "Hanuman Chalisa Super Fast 7 Times _ Hanuman Chalisa _ Shri Hanuman Chalisa_VSBsqBl4mns.mp3" },
+        { name: "3", url: "Hanuman Chalisa(PagalWorld.com.se).mp3" },
+        { name: "4", url: "SnapSave.io - मंगल भवन अमंगल हारी _ Mangal Bhavan Amangal Haari _ Ramayan Chaupai _ Shree Ram Aradhana (192 kbps).mp3" },
+        { name: "5", url: "RAM SIYA RAM.mp3" },
+        { name: "6", url: "sunderkand.mp3" }
+      ];
+
+      // Find the matching MP3 file based on the search term
+      var selectedFile = mp3Files.find(function(file) {
+        return file.name.toLowerCase().includes(searchTerm.toLowerCase());
+      });
+
+      if (selectedFile) {
+        // Stop the previous audio playback if it exists
+        if (audioPlayer) {
+          audioPlayer.pause();
+          clearTimeout(audioTimer);
+        }
+
+        audioPlayer = new Audio(selectedFile.url);
+
+        // Update status message
+        statusContainer.textContent = "Now Playing: " + selectedFile.name;
+
+        audioPlayer.play();
+
+        // Update progress every second
+        audioTimer = setInterval(function() {
+          var progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+          console.log("Audio Progress: " + progress.toFixed(2) + "%");
+        }, 1000);
+      } else {
+        statusContainer.textContent = "No matching MP3 file found.";
+      }
+    }
+
+    function pausePlayback() {
+      if (audioPlayer) {
+        audioPlayer.pause();
+        clearTimeout(audioTimer);
+        statusContainer.textContent = "Playback Paused";
+      }
+    }
+
+    function resumePlayback() {
+      if (audioPlayer) {
+        audioPlayer.play();
+        audioTimer = setInterval(function() {
+          var progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+          console.log("Audio Progress: " + progress.toFixed(2) + "%");
+        }, 1000);
+        statusContainer.textContent = "Playback Resumed: " + audioPlayer.currentSrc.split('/').pop();
+      }
+    }
+
+    function stopPlayback() {
+      if (audioPlayer) {
+        audioPlayer.pause();
+        clearTimeout(audioTimer);
+        statusContainer.textContent = "Playback Stopped";
+      }
+    }
+  </script>
+
+
+<style>
 
   body{
     margin: 0;
@@ -189,7 +351,7 @@
 </head>
 <body bgcolor="#876169">
 
-  <!--Start of Tawk.to Script-->
+<!--Start of Tawk.to Script-->
 <script type="text/javascript">
 var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
 (function(){
@@ -229,22 +391,42 @@ s0.parentNode.insertBefore(s1,s0);
   </script>
 
 
+  
+<div class="search-container">
+    <div class="search-box">
+      <input type="text" id="searchTerm" class="search-input" placeholder="Enter audio code">
+      <button class="search-button" onclick="searchAndPlay()">Start</button>
+      <button class="search-button" onclick="pausePlayback()">Pause</button>
+      <button class="resume-button" onclick="resumePlayback()">Resume</button>
+      <button class="resume-button" onclick="stopPlayback()">Stop</button>
+    </div>
+  </div>
+
+  <div class="status-container">
+    <span class="status-message" id="statusContainer"></span>
+  </div>
+
+  <script>
+    statusContainer = document.getElementById("statusContainer");
+  </script>
+  
+   
   <hr>
   <center>
     
     <img src="hanuman.jpg" alt="Image here." loading="lazy" height="350" width="350">
     <hr></center>
 
-    <h2 style="color:rgb(125, 195, 32)">ॐ हं हनुमते नमः</h2> <h2>[By: Super Fast Devotional Songs]</h2>
+    <h2 style="color:rgb(125, 195, 32)">ॐ हं हनुमते नमः (code-1) </h2> <h2>[By: Super Fast Devotional Songs]</h2>
     <audio src="ॐ हं हनुमते नमः 1008 Times _ om hanumate namah 1008 _ listen peace full hanuman mantra_j1afyq4EM9A.mp3" loading="lazy "controls></audio>
     <hr>
 
-    <h2 style="color:rgb(125, 195, 32)">Hanuman Chalisa Fast:</h2> <h2>[By: Bhakti Bhajan Mantra]</h2>
+    <h2 style="color:rgb(125, 195, 32)">Hanuman Chalisa Fast: (c-2)</h2> <h2>[By: Bhakti Bhajan Mantra]</h2>
     <audio src="Hanuman Chalisa Super Fast 7 Times _ Hanuman Chalisa _ Shri Hanuman Chalisa_VSBsqBl4mns.mp3" loading="lazy" controls></audio>
     <hr>
     
 
-    <h2 style="color:rgb(125, 195, 32)">Hanuman Chalisa:</h2> <h2>[By: Hariharan]</h2>
+    <h2 style="color:rgb(125, 195, 32)">Hanuman Chalisa: (c-3)</h2> <h2>[By: Hariharan]</h2>
     <audio src="Hanuman Chalisa(PagalWorld.com.se).mp3" loading="lazy" controls></audio>
     
  
