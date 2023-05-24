@@ -268,13 +268,7 @@
       }
     }
 
-    function stopPlayback() {
-      if (audioPlayer) {
-        audioPlayer.pause();
-        clearTimeout(audioTimer);
-        statusContainer.textContent = "Playback Stopped";
-      }
-    }
+    
   </script>
 
 
@@ -398,7 +392,6 @@ s0.parentNode.insertBefore(s1,s0);
       <button class="search-button" onclick="searchAndPlay()">Start</button>
       <button class="search-button" onclick="pausePlayback()">Pause</button>
       <button class="resume-button" onclick="resumePlayback()">Resume</button>
-      <button class="resume-button" onclick="stopPlayback()">Stop</button>
     </div>
   </div>
 
